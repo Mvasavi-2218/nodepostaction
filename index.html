@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		*{
+			margin:0%;
+			padding:1%;
+			font-size: 1rem;
+			font-style:oblique;
+			font-weight: bold;
+			border-radius:16px;
+			border-color:#cfb6f7;
+		}
+		body{
+			margin-top:10%;
+			background-image:url(https://www.wallpaperup.com/uploads/wallpapers/2018/08/08/1286025/207b6412f4291919e69bbb2d51ea89dd-700.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.style{
+			text-align: center;
+		}
+		.demo{
+			background-color:skyblue;
+		}
+	</style>
+	<script type="text/javascript">
+		function demo(){
+			var newname=document.getElementById("new").value
+			console.log(newname)
+			document.getElementById("new").value=""
+			var pass=document.getElementById("word").value
+			console.log(pass)
+			document.getElementById("word").value=""
+			fetch("http://localhost:2003/newData",{
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify({name:newname,age:pass})
+		})
+			.then((res)=>{
+				console.log(res)
+				if(res.status===200)
+					alert("Data Added")
+			})
+			.catch((er)=>{
+				alert("form server",er)
+			})
+		}
+	</script>
+</head>
+<body>
+	<section class="style">
+	<input type="text" id="new" placeholder="Enter a text"/>
+	<p><input type="password" placeholder="password"id="word"/></p>
+	<button class="demo"onclick="demo()">submit</button>
+</section>
+
+</body>
+</html>
