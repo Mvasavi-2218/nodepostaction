@@ -35,30 +35,80 @@
 			var pass=document.getElementById("word").value
 			console.log(pass)
 			document.getElementById("word").value=""
+			var number=document.getElementById("number").value
+			console.log(number)
+			document.getElementById("number").value=""
+			var numberCheck=/^[0-9]{10}$/
+		 	if(number==""){
+		 		alert("enter your mobile mnumber")
+		 			return false
+		 		}
+		 		 if(!number.match(numberCheck)){
+		 	alert("number carries 10 digits only")
+		 	return false
+		 		}
+			var study=document.getElementById("learn").value
+			console.log(study)
+			document.getElementById("learn").value=""
+			var email=document.getElementById("email").value
+			console.log(email)
+			//var mailCheck=/^[a-zA-Z#.]$/ 
+			var emailCheck=/^[a-zA-Z0-9#.]+@[a-z]+\.[a-z]{2,3}$/
+		 //                vasavi       @gmail  .com
+		 if(email==""){
+		 	alert("please enter email id")
+		 	return false
+		 }
+		 if(!email.match(emailCheck)){
+		 	alert("your email id is not valid")
+		 	return false
+		 }
+			document.getElementById("email").value=""
+			var birth=document.getElementById("date").value
+			console.log(birth)
+			document.getElementById("date").value=""
+			var gmale=document.getElementById("Male").checked
+			var gfemale=document.getElementById("Female").checked
+			console.log(gmale,gfemale)
+			if(gmale==true)var gender="Male"
+			else var gender="Female"
 			fetch("http://localhost:2003/newData",{
 			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
 			},
-			body:JSON.stringify({name:newname,age:pass})
+			body:JSON.stringify({name:newname,age:pass,course:study,mobile:number,email:email,year:birth,gender:gender})
 		})
 			.then((res)=>{
 				console.log(res)
 				if(res.status===200)
 					alert("Data Added")
 			})
-			.catch((er)=>{
-				alert("form server",er)
+			.catch((err)=>{
+				alert(err)
 			})
 		}
 	</script>
 </head>
 <body>
 	<section class="style">
-	<input type="text" id="new" placeholder="Enter a text"/>
-	<p><input type="password" placeholder="password"id="word"/></p>
+	<input type="text"id="new"placeholder="Enter your name"/>
+	<p><input type="password"placeholder="password"id="word"/></p>
+	<p><input placeholder="mobile number"id="number"/></p>
+	<p><input type="text"placeholder="Enter your Email"id="email"/></p>
+	<p><input type="date"id="date"/></p>
+	<p><input type="radio"id="Male"name="gender"/>Male</p>
+	<p><input type="radio"id="Female"name="gender"/>Female</p>
+	<p><select id="learn">
+		<option>select a class</option>
+		<option>Mpcs</option>
+		<option>Mpc</option>
+		<option>Bipc</option>
+		<option>CSE</option>
+		<option>MBBS</option>
+		<option>CIVIL</option>
+	</select></p>
 	<button class="demo"onclick="demo()">submit</button>
 </section>
-
 </body>
 </html>
